@@ -1,0 +1,31 @@
+---
+version: 1
+
+kind: experiment
+
+environment:
+  resources:
+    cpu:
+      requests: 1
+      limits: 1
+    memory:
+      requests: 4096
+      limits: 4096
+    gpu:
+      requests: 1
+      limits: 1
+  node_selector:
+    polyaxon: experiments-gpu-p100
+  tolerations:
+    - key: nvidia.com/gpu
+      operator: Equal
+      value: present
+      effect: "NoSchedule"
+
+build:
+  image: tensorflow/tensorflow:1.10.1
+  build_steps:
+    - pip install --no-cache-dir -r requirements.txt
+
+run:
+  cmd:  python mnist.py

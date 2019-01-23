@@ -1,0 +1,4 @@
+.idea/
+.polyaxon/
+MNIST_data/
+tmp/
