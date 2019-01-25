@@ -44,10 +44,9 @@ environment:
           operator: Equal
           value: present
           effect: "NoSchedule"
-
     default_ps:
       node_selector:
-        polyaxon: experiments
+        polyaxon: experiments-gpu-p100
       resources:
         cpu:
           requests: 1
@@ -55,9 +54,12 @@ environment:
         memory:
           requests: 2048
           limits: 2048
+        gpu:
+          requests: 0
+          limits: 1
 
 build:
-  image: tensorflow/tensorflow:1.10.1
+  image: tensorflow/tensorflow:1.10.1-gpu
   build_steps:
     - pip install --no-cache-dir -r requirements.txt
 

@@ -23,7 +23,7 @@ environment:
       effect: "NoSchedule"
 
 build:
-  image: tensorflow/tensorflow:1.10.1
+  image: tensorflow/tensorflow:1.10.1-gpu
   build_steps:
     - pip install --no-cache-dir -r requirements.txt
 

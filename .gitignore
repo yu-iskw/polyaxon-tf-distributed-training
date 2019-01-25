@@ -2,3 +2,5 @@
 .polyaxon/
 MNIST_data/
 tmp/
+MNIST-data/
+models/
