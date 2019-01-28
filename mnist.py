@@ -138,13 +138,7 @@ def main(_):
     eval_data = eval_data.reshape(eval_data.shape[0], 28, 28, 1)
 
     # Create the Estimator
-    # sess_config = tf.ConfigProto(
-    #     device_count={'GPU': 1},
-    #     allow_soft_placement=True,
-    #     log_device_placement=True,
-    #     gpu_options=tf.GPUOptions(force_gpu_compatible=True))
     training_config = tf.estimator.RunConfig(
-        # session_config=sess_config,
         # model_dir=FLAGS.model_dir,
         save_summary_steps=20,
         save_checkpoints_steps=20)
@@ -159,10 +153,14 @@ def main(_):
     logging_hook = tf.train.LoggingTensorHook(tensors=tensors_to_log, every_n_iter=50)
 
     # Model exporter
-    latest_exporter = tf.estimator.LatestExporter(
-        name="models",
+    # latest_exporter = tf.estimator.LatestExporter(
+    #     name="models",
+    #     serving_input_receiver_fn=serving_input_receiver_fn,
+    #     exports_to_keep=5,
+    # )
+    best_exporter = tf.estimator.BestExporter(
         serving_input_receiver_fn=serving_input_receiver_fn,
-        exports_to_keep=5,
+        exports_to_keep=1,
     )
 
     # Train the model
@@ -186,7 +184,7 @@ def main(_):
         input_fn=eval_input_fn,
         throttle_secs=180,
         steps=1000,
-        exporters=latest_exporter,
+        exporters=best_exporter,
     )
 
     # Train and eval
