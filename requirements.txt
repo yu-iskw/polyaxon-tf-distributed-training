@@ -1,2 +1,2 @@
-polyaxon-helper==0.3.7
-polyaxon-client==0.3.7
+polyaxon-helper==0.4.2
+polyaxon-client==0.4.2
